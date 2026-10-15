@@ -45,7 +45,7 @@ async function cached<T>(key: string, loader: () => Promise<T>) {
 }
 
 function token() { return process.env.TMDB_READ_ACCESS_TOKEN || BUNDLED_TMDB_READ_TOKEN; }
-function image(path: string | null | undefined, size: "w500" | "original") { return path ? `https://image.tmdb.org/t/p/${size}${path}` : null; }
+function image(path: string | null | undefined, size: "w342" | "w500" | "w1280" | "original") { return path ? `https://image.tmdb.org/t/p/${size}${path}` : null; }
 function tmdbLanguage(locale: Locale) { return locale === "vi" ? "vi-VN" : "en-US"; }
 function canonicalMediaType(raw: RawTmdb, fallback: "movie" | "tv" = "movie") {
   if (raw.media_type === "tv") return "tv";
@@ -68,13 +68,13 @@ export function normalizeTmdbTitle(raw: RawTmdb, mediaType: "movie" | "tv", loca
     rating: typeof raw.vote_average === "number" ? Math.round(raw.vote_average * 10) / 10 : null,
     runtimeMinutes: raw.runtime || (Array.isArray(raw.episode_run_time) ? raw.episode_run_time[0] : null) || null,
     genres: Array.isArray(raw.genres) ? raw.genres.map((genre: { name: string }) => genre.name) : [],
-    posterUrl: image(raw.poster_path, "w500"),
-    backdropUrl: image(raw.backdrop_path, "original"),
+    posterUrl: image(raw.poster_path, "w342"),
+    backdropUrl: image(raw.backdrop_path, "w1280"),
   };
 }
 
 function normalizeSeason(raw: RawTmdb, locale: Locale): SeasonSummary {
-  return { seasonNumber: raw.season_number, name: raw.name || `${COPY[locale].seasonFallback} ${raw.season_number}`, episodeCount: raw.episode_count || 0, posterUrl: image(raw.poster_path, "w500") };
+  return { seasonNumber: raw.season_number, name: raw.name || `${COPY[locale].seasonFallback} ${raw.season_number}`, episodeCount: raw.episode_count || 0, posterUrl: image(raw.poster_path, "w342") };
 }
 
 export function normalizeEpisode(raw: RawTmdb, titleId: string, seasonNumber: number, locale: Locale = "vi"): Episode {
