@@ -25,7 +25,7 @@ export default function Home() {
         {source === "demo" && <div className="catalog-note glass"><Info size={16} /> {t("note.demo")}</div>}
         <div className="rail-stack">
           <ContinueRail />
-          {rails.map(rail => <MovieRail key={rail.id} label={rail.label} items={rail.items} />)}
+          {rails.map((rail, index) => <MovieRail key={rail.id} label={rail.label} items={rail.items} priorityFirstRow={index === 0} />)}
         </div>
       </main>
     </div>
@@ -54,7 +54,11 @@ function HeroCarousel({ hero, trending }: { hero: CatalogTitle; trending: Catalo
         <div
           key={slide.id}
           className={index === active ? "hero-slide hero-slide--on" : "hero-slide"}
-          style={{ "--hero-image": `url(${slide.backdropUrl || ""})` } as React.CSSProperties}
+          style={{
+            "--hero-image": index === active || index === (active + 1) % slides.length
+              ? (slide.backdropUrl ? `url(${slide.backdropUrl})` : "none")
+              : "none",
+          } as React.CSSProperties}
           aria-hidden={index !== active}
         >
           <div className="hero__inner">

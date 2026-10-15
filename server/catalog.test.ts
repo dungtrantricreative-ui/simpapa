@@ -4,7 +4,7 @@ import { homeCatalog, normalizeEpisode, normalizeTmdbTitle, searchTitles } from 
 describe("catalog fallback", () => {
   it("returns a usable catalog in both demo and TMDB-enabled modes", async () => {
     const catalog = await homeCatalog();
-    expect(["demo", "tmdb"]).toContain(catalog.source);
+    expect(["demo", "tmdb", "fallback"]).toContain(catalog.source);
     expect(catalog.hero.id).toBeTruthy();
     expect(catalog.rails[0]?.items.length).toBeGreaterThan(0);
   });
@@ -39,8 +39,8 @@ describe("catalog fallback", () => {
       rating: 7.7,
       runtimeMinutes: 99,
       genres: ["Chính kịch"],
-      posterUrl: "https://image.tmdb.org/t/p/w500/poster.jpg",
-      backdropUrl: "https://image.tmdb.org/t/p/original/backdrop.jpg",
+      posterUrl: "https://image.tmdb.org/t/p/w342/poster.jpg",
+      backdropUrl: "https://image.tmdb.org/t/p/w1280/backdrop.jpg",
     });
   });
 

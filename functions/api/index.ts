@@ -57,8 +57,8 @@ async function handleTrpc(request, url) {
       rating: typeof raw.vote_average === 'number' ? Math.round(raw.vote_average * 10) / 10 : null,
       runtimeMinutes: raw.runtime || null,
       genres: Array.isArray(raw.genres) ? raw.genres.map(g => g.name) : [],
-      posterUrl: raw.poster_path ? `https://image.tmdb.org/t/p/w500${raw.poster_path}` : null,
-      backdropUrl: raw.backdrop_path ? `https://image.tmdb.org/t/p/original${raw.backdrop_path}` : null,
+      posterUrl: raw.poster_path ? `https://image.tmdb.org/t/p/w342${raw.poster_path}` : null,
+      backdropUrl: raw.backdrop_path ? `https://image.tmdb.org/t/p/w1280${raw.backdrop_path}` : null,
     };
   }
 
@@ -185,8 +185,8 @@ async function handleTmdb(request, url) {
       rating: typeof raw.vote_average === 'number' ? Math.round(raw.vote_average * 10) / 10 : null,
       runtimeMinutes: raw.runtime || null,
       genres: Array.isArray(raw.genres) ? raw.genres.map(g => g.name) : [],
-      posterUrl: raw.poster_path ? `https://image.tmdb.org/t/p/w500${raw.poster_path}` : null,
-      backdropUrl: raw.backdrop_path ? `https://image.tmdb.org/t/p/original${raw.backdrop_path}` : null,
+      posterUrl: raw.poster_path ? `https://image.tmdb.org/t/p/w342${raw.poster_path}` : null,
+      backdropUrl: raw.backdrop_path ? `https://image.tmdb.org/t/p/w1280${raw.backdrop_path}` : null,
     };
   }
 
